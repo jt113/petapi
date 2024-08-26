@@ -1,5 +1,30 @@
 CREATE USER pet_user WITH PASSWORD 'username';
 
+CREATE DATABASE petapidb;
+
+GRANT ALL PRIVILEGES ON DATABASE petapidb TO pet_user;
+
+-- Create schema
+CREATE SCHEMA petapi;
+
+-- Create pets table
+CREATE TABLE petapi.pets (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  breed VARCHAR(100) NOT NULL,
+  allergy_id_list VARCHAR(255)
+);
+
+-- Create allergens table
+CREATE TABLE petapi.allergens (
+  allergy_id SERIAL PRIMARY KEY,
+  substance VARCHAR(100) NOT NULL,
+  severity INTEGER NOT NULL
+);
+
+GRANT ALL PRIVILEGES ON SCHEMA petapi TO pet_user;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA petapi TO pet_user;
+
 GRANT ALL PRIVILEGES ON DATABASE petapidb TO pet_user;
 GRANT ALL PRIVILEGES ON TABLE petapi.pets TO pet_user;
 GRANT ALL PRIVILEGES ON TABLE petapi.allergens TO pet_user;
